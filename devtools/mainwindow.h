@@ -20,6 +20,10 @@ public:
 private slots:
     void on_btnStringProcess_clicked();
 
+    void on_btnEncoding_clicked();
+
+    void on_btnExit_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
