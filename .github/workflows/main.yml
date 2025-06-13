@@ -30,22 +30,26 @@ jobs:
         
     - name: Configure CMake
       shell: cmd
+      working-directory: devtools
       run: |
         cmake -B build -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 17 2022"
 
     - name: Build project
       shell: cmd
+      working-directory: devtools
       run: |
         cmake --build build --config Release --target devtools -- /m
 
     - name: Deploy dependencies
       shell: cmd
+      working-directory: devtools
       run: |
         mkdir package
         copy build\Release\devtools.exe package
         windeployqt --release --compiler-runtime --no-translations package\devtools.exe
 
     - name: Create ZIP manually
+      working-directory: devtools
       run: |
         powershell Compress-Archive -Path package\* -DestinationPath devtools_windows_x64.zip
 
@@ -53,4 +57,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: devtools-binaries
-        path: devtools_windows_x64.zip
+        path: devtools/devtools_windows_x64.zip
