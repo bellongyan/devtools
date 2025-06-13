@@ -1,0 +1,56 @@
+name: Build DevTools Binary
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      id: install-qt
+      with:
+        version: '6.8.3'
+        host: windows
+        target: desktop
+        arch: win64_msvc2022_64
+
+    - name: Setup MSVC 2022
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+        
+    - name: Configure CMake
+      shell: cmd
+      run: |
+        cmake -B build -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 17 2022"
+
+    - name: Build project
+      shell: cmd
+      run: |
+        cmake --build build --config Release --target devtools -- /m
+
+    - name: Deploy dependencies
+      shell: cmd
+      run: |
+        mkdir package
+        copy build\Release\devtools.exe package
+        windeployqt --release --compiler-runtime --no-translations package\devtools.exe
+
+    - name: Create ZIP manually
+      run: |
+        powershell Compress-Archive -Path package\* -DestinationPath devtools_windows_x64.zip
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: devtools-binaries
+        path: devtools_windows_x64.zip
