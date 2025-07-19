@@ -25,6 +25,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         stringprocess.h stringprocess.cpp stringprocess.ui
         encodingdecoding.h encodingdecoding.cpp encodingdecoding.ui
+        jsonprocess.h jsonprocess.cpp jsonprocess.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET devtools APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

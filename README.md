@@ -1,6 +1,7 @@
 # devtool
 开发小工具
 
+![首页](./src/main_window.png)
 
 ## 字符处理
 
@@ -15,3 +16,9 @@
 ![URL编码](./src/encoding_01.png)
 
 ![Base64编码](./src/encoding_02.png)
+
+## Json处理
+
+![Json格式化](./src/json_process_01.png)
+
+![Json压缩](./src/json_process_02.png)

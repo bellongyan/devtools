@@ -22,6 +22,8 @@ private slots:
 
     void on_btnEncoding_clicked();
 
+    void on_btnJsonProcess_clicked();
+
     void on_btnExit_clicked();
 
 private:

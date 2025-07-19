@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "./stringprocess.h"
 #include "./encodingdecoding.h"
+#include "./jsonprocess.h"
 #include <QApplication>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -33,6 +34,16 @@ void MainWindow::on_btnEncoding_clicked()
     encodingDecodingWindow->setAttribute(Qt::WA_DeleteOnClose);
     connect(encodingDecodingWindow, &EncodingDecoding::destroyed, this, &MainWindow::show);
     encodingDecodingWindow->show();
+    this->hide();
+}
+
+// 转到Json处理
+void MainWindow::on_btnJsonProcess_clicked()
+{
+    JsonProcess *jsonProcessWindow = new JsonProcess();
+    jsonProcessWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(jsonProcessWindow, &StringProcess::destroyed, this, &MainWindow::show);
+    jsonProcessWindow->show();
     this->hide();
 }
 
